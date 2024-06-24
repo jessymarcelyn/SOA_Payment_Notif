@@ -9,4 +9,4 @@ done
 
 # Run Service
 
-nameko run --config config.yml kartuKredit.kartu --backdoor 3000
+nameko run --config config.yml kartukredit.kartu --backdoor 3000

@@ -48,7 +48,7 @@ FROM nameko-example-base as install
 COPY --from=builder /application/wheelhouse /wheelhouse
 
 # Install user service dependencies
-RUN pip install --no-index -f /wheelhouse nameko_example_kartuKredit
+RUN pip install --no-index -f /wheelhouse nameko_example_kartukredit
 
 # Stage 4: Final Service Image
 FROM base as service
@@ -59,7 +59,7 @@ COPY --from=install /appenv /appenv
 RUN mkdir -p /var/nameko/
 COPY config.yml /var/nameko/config.yml
 COPY run.sh /var/nameko/run.sh
-COPY . /var/nameko/kartuKredit/
+COPY . /var/nameko/kartukredit/
 
 # Set permissions for run.sh
 RUN chmod +x /var/nameko/run.sh

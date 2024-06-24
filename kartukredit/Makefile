@@ -1,11 +1,11 @@
 TAG = latest
 
 build-image:
-	docker build -t nameko/nameko-example-kartuKredit:$(TAG) ./kartuKredit
+	docker build -t nameko/nameko-example-kartukredit:$(TAG) ./kartukredit
 
 docker-tag:
-	docker tag nameko/nameko-example-kartuKredit:$(TAG) \
-	nameko/nameko-example-kartuKredit:$(TAG)
+	docker tag nameko/nameko-example-kartukredit:$(TAG) \
+	nameko/nameko-example-kartukredit:$(TAG)
 
 push-image:
-	docker push nameko/nameko-example-kartuKredit:$(TAG)
+	docker push nameko/nameko-example-kartukredit:$(TAG)

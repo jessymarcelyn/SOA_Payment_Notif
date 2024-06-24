@@ -3,9 +3,9 @@ TAG ?= dev
 IMAGES := transaksiPembayaran notification kartuKredit ovo gopay bca mandiri gateway
 
 install-dependencies:
-	pip install -U -e "transaksiPembayaran/.[dev]"
+	pip install -U -e "transaksipembayaran/.[dev]"
 	pip install -U -e "notification/.[dev]"
-	pip install -U -e "kartuKredit/.[dev]"
+	pip install -U -e "kartukredit/.[dev]"
 	pip install -U -e "ovo/.[dev]"
 	pip install -U -e "gopay/.[dev]"
 	pip install -U -e "bca/.[dev]"

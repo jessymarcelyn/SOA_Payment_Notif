@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='nameko-example-kartuKredit',
+    name='nameko-example-kartukredit',
     version='0.0.1',
     description='Kartu kredit service with Nameko',
     author='nameko',

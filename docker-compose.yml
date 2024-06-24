@@ -20,7 +20,7 @@ services:
      - ./mysql-init:/docker-entrypoint-initdb.d
     restart: always
   
-  transaksiPembayaran:
+  transaksipembayaran:
     build: ./transaksipembayaran
     container_name: nameko-example-transaksipembayaran
     depends_on:
@@ -62,9 +62,9 @@ services:
       RABBIT_PASSWORD: "guest"
       RABBIT_MANAGEMENT_PORT: "15672"
   
-  kartu_kredit:
-    build: ./kartuKredit
-    container_name: nameko-example-kartuKredit
+  kartukredit:
+    build: ./kartukredit
+    container_name: nameko-example-kartukredit
     depends_on:
       - rabbit
       - mysql
