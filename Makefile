@@ -1,6 +1,6 @@
 HTMLCOV_DIR ?= htmlcov
 TAG ?= dev
-IMAGES := transaksiPembayaran notification kartuKredit ovo gopay bca mandiri gateway
+IMAGES := transaksipembayaran notification kartukredit ovo gopay bca mandiri gateway
 
 install-dependencies:
 	pip install -U -e "transaksipembayaran/.[dev]"
