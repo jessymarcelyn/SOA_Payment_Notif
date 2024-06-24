@@ -43,12 +43,15 @@ RUN pip wheel .
 RUN ls /application/wheelhouse
 
 # Stage 3: Install Image
-FROM nameko-example-base as install
+FROM base as install
 
 COPY --from=builder /application/wheelhouse /wheelhouse
 
 # Install user service dependencies
 RUN pip install --no-index -f /wheelhouse nameko_example_transaksipembayaran
+
+# Install pytz
+RUN pip install pytz
 
 # Stage 4: Final Service Image
 FROM base as service
