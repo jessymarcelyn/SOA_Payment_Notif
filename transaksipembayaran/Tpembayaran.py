@@ -1,5 +1,5 @@
 from nameko.rpc import rpc
-import dependencies
+from . import dependencies
 
 class Transferservice:
 
