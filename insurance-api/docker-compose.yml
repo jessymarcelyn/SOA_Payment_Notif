@@ -46,7 +46,7 @@ services:
     depends_on:
       - rabbit
     ports:
-        - "8005:8000"
+        - "8009:8000"
     links:
         - "rabbit:nameko-example-rabbitmq"
     environment:
