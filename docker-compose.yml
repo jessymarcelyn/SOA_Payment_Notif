@@ -14,11 +14,53 @@ services:
     ports:
       - "3307:3306" # Exposing MySQL on different port for convenience
     environment:
-      MYSQL_DATABASE: "soa_payment_notif"
+      MYSQL_DATABASE: "soa_searchrecom"
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
      - ./mysql-init:/docker-entrypoint-initdb.d
     restart: always
+
+  # user:
+  #   build: ./user
+  #   container_name: nameko-example-user
+  #   depends_on:
+  #     - rabbit
+  #     - mysql
+  #   ports:
+  #     - "8002:8000"
+  #   links:
+  #     - "rabbit:nameko-example-rabbitmq"
+  #     - "mysql:nameko-example-mysql"
+  #   environment:
+  #     MYSQL_PASSWORD: "password"
+  #     MYSQL_HOST: "mysql"
+  #     MYSQL_DB: "soa_searchrecom"
+  #     RABBIT_HOST: "rabbit"
+  #     RABBIT_PORT: "5672"
+  #     RABBIT_USER: "guest"
+  #     RABBIT_PASSWORD: "guest"
+  #     RABBIT_MANAGEMENT_PORT: "15672"
+  searchrecom:
+    build: ./searchrecom
+    container_name: nameko-example-searchrecom
+    depends_on:
+      - rabbit
+      - mysql
+    ports:
+      - "8002:8000"
+    links:
+      - "rabbit:nameko-example-rabbitmq"
+      - "mysql:nameko-example-mysql"
+    environment:
+      MYSQL_PASSWORD: "password"
+      MYSQL_HOST: "mysql"
+      MYSQL_DB: "soa_searchrecom"
+      RABBIT_HOST: "rabbit"
+      RABBIT_PORT: "5672"
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest"
+      RABBIT_MANAGEMENT_PORT: "15672"
+    
 
   gateway:
     build: ./gateway
@@ -26,7 +68,7 @@ services:
     depends_on:
       - rabbit
     ports:
-      - "8009:8000"
+      - "8003:8000"
     links:
       - "rabbit:nameko-example-rabbitmq"
     environment:

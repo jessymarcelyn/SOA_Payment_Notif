@@ -1,8 +1,9 @@
 HTMLCOV_DIR ?= htmlcov
 TAG ?= dev
-IMAGES := gateway
+IMAGES := searchrecom gateway
 
 install-dependencies:
+	pip install -U -e "searchrecom/.[dev]"
 	pip install -U -e "gateway/.[dev]"
 
 # docker
