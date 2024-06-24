@@ -14,7 +14,7 @@ services:
     ports:
       - "3307:3306" # Exposing MySQL on different port for convenience
     environment:
-      MYSQL_DATABASE: "soa_utama"
+      MYSQL_DATABASE: "soa_payment_notif"
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
      - ./mysql-init:/docker-entrypoint-initdb.d
@@ -34,7 +34,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -55,7 +55,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -76,7 +76,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -97,7 +97,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -118,7 +118,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -139,7 +139,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
@@ -160,7 +160,7 @@ services:
     environment:
       MYSQL_PASSWORD: "password"
       MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_utama"
+      MYSQL_DB: "soa_payment_notif"
       RABBIT_HOST: "rabbit"
       RABBIT_PORT: "5672"
       RABBIT_USER: "guest"
