@@ -1,5 +1,5 @@
 from nameko.rpc import rpc
-import kartukredit.dependencies as kartuDependencies
+import kartukredit.dependenciesKartu as kartuDependencies
 
 class KartuService:
 
