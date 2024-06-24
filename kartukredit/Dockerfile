@@ -43,7 +43,7 @@ RUN pip wheel .
 RUN ls /application/wheelhouse
 
 # Stage 3: Install Image
-FROM nameko-example-base as install
+FROM base as install
 
 COPY --from=builder /application/wheelhouse /wheelhouse
 
@@ -59,10 +59,16 @@ FROM base as service
 COPY --from=install /appenv /appenv
 
 # Set working directory and copy configuration files
-RUN mkdir -p /var/nameko/
+WORKDIR /var/nameko
 COPY config.yml /var/nameko/config.yml
 COPY run.sh /var/nameko/run.sh
-COPY . /var/nameko/kartukredit/
+COPY kartukredit /var/nameko/kartukredit
 
 # Set permissions for run.sh
 RUN chmod +x /var/nameko/run.sh
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH=/var/nameko
+
+# Set the command to run the service
+CMD ["/var/nameko/run.sh"]
