@@ -1,9 +1,10 @@
 HTMLCOV_DIR ?= htmlcov
 TAG ?= dev
-IMAGES := transaksipembayaran gateway
+IMAGES := transaksipembayaran kartukredit gateway
 
 install-dependencies:
 	pip install -U -e "transaksipembayaran/.[dev]"
+	pip install -U -e "kartukredit/.[dev]"
 	pip install -U -e "gateway/.[dev]"
 
 # docker
