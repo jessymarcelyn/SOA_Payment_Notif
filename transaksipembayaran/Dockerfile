@@ -50,8 +50,8 @@ COPY --from=builder /application/wheelhouse /wheelhouse
 # Install user service dependencies
 RUN pip install --no-index -f /wheelhouse nameko_example_transaksipembayaran
 
-# Install pytz
-RUN pip install pytz
+# Install additional required packages
+RUN pip install pytz mysql-connector-python cryptography
 
 # Stage 4: Final Service Image
 FROM base as service
