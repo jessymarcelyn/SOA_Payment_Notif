@@ -1,5 +1,5 @@
 from nameko.rpc import rpc
-import notification.dependencies as dependencies
+import dependencies
 
 class Notifservice:
 
