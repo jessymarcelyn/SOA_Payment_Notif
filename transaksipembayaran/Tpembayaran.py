@@ -1,5 +1,5 @@
 from nameko.rpc import rpc
-from transaksipembayaran import dependencies
+import transaksipembayaran.dependencies as dependencies
 
 class Transferservice:
 
