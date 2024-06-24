@@ -40,27 +40,7 @@ services:
       RABBIT_USER: "guest"
       RABBIT_PASSWORD: "guest"
       RABBIT_MANAGEMENT_PORT: "15672"
-  
-  notification:
-    build: ./notification
-    container_name: nameko-example-notification
-    depends_on:
-      - rabbit
-      - mysql
-    ports:
-      - "8003:8000"
-    links:
-      - "rabbit:nameko-example-rabbitmq"
-      - "mysql:nameko-example-mysql"
-    environment:
-      MYSQL_PASSWORD: "password"
-      MYSQL_HOST: "mysql"
-      MYSQL_DB: "soa_payment_notif"
-      RABBIT_HOST: "rabbit"
-      RABBIT_PORT: "5672"
-      RABBIT_USER: "guest"
-      RABBIT_PASSWORD: "guest"
-      RABBIT_MANAGEMENT_PORT: "15672"
+
 
   gateway:
     build: ./gateway
