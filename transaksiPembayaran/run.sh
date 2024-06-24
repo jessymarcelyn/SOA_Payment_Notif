@@ -9,4 +9,4 @@ done
 
 # Run Service
 
-nameko run --config config.yml transaksiPembayaran.Tpembayaran --backdoor 3000
+nameko run --config config.yml transaksipembayaran.Tpembayaran --backdoor 3000

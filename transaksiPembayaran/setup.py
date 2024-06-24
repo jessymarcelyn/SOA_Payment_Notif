@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='nameko-example-transaksiPembayaran',
+    name='nameko-example-transaksipembayaran',
     version='0.0.1',
     description='Transaksi Pembayaran service with Nameko',
     author='nameko',

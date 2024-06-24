@@ -21,8 +21,8 @@ services:
     restart: always
   
   transaksiPembayaran:
-    build: ./transaksiPembayaran
-    container_name: nameko-example-transaksiPembayaran
+    build: ./transaksipembayaran
+    container_name: nameko-example-transaksipembayaran
     depends_on:
       - rabbit
       - mysql
