@@ -1,0 +1,209 @@
+
+.bg-body-index {
+  background-color: #1ba0e2;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  max-width: 950px; /* Set your desired maximum width */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1ba0e2; /* Set background color here */
+  color: white;
+  padding: 20px; /* Add padding to create some space between content and edges */
+  min-height: 350px;
+}
+
+.content1 {
+  max-width: 950px; /* Set your desired maximum width */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white; /* Set background color here */
+  /* color: white; */
+  padding: 20px; /* Add padding to create some space between content and edges */
+  /* min-height: 350px; */
+}
+
+
+.content .text {
+  flex: 1;
+  padding-right: 20px; /* Adjust spacing between text and image */
+}
+
+.content img {
+  flex: 1;
+  max-width: 35%; /* Adjust image width */
+  height: auto;
+}
+
+.menu-title {
+  padding: 5px;
+  font-size: 12px;
+}
+.btn-outline-secondary,
+.btn-outline-secondary:hover, 
+.btn-outline-secondary:active, 
+.btn-outline-secondary:focus {
+  background-color: #fff;
+  color: #6c757d;
+  padding: 20px;
+  width: 150px;
+  height: 75px;
+  margin: 5px;
+  border-color: lightgray;
+  align-items: center;
+}
+.fa-solid {
+  padding-top: 5px;
+}
+.title-form {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.title {
+  min-height: 100px;
+  display: flex;
+  align-items: flex-end; /* Aligns the title to the bottom */
+  padding-bottom: 20px; /* Adjust this value to move the title lower */
+}
+.insurance-title {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px;
+}
+.custom-card {
+  width: 100%;
+  max-width: 950px; /* Set your desired maximum width */
+  max-height: 100%;
+  background-color: white;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1); /* Softened shadow */
+  margin: auto;
+  overflow: hidden;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+.horizontal-line {
+  border-top: 1px solid #dee2e6; /* Softer color with increased thickness */
+  margin: 10px 5px; /* Add margin top and bottom */
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  max-width: 950px;
+  margin: auto;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.partner {
+  font-size: 1rem;
+  font-weight: 300;
+  padding-top: 20px;
+}
+.partner2 {
+  font-size: 1rem;
+  font-weight: 400;
+  padding-bottom: 40px;
+  /* padding-top: 20px; */
+}
+.partner1 {
+  font-size: 1rem;
+  font-weight: 600;
+  /* padding-top: 20px; */
+}
+.circle-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Adjust as needed */
+  height: 30px; /* Adjust as needed */
+  border-radius: 50%;
+  background-color: #1ba0e2; /* Background color of the circle */
+  color: white; /* Text color */
+  font-size: 18px; /* Font size of the number */
+  margin-bottom: 20px;
+}
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to the element */
+.animated-section {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s; /* Smooth transition */
+}
+
+.animate {
+    opacity: 1; /* Make visible */
+    animation: slideInFromLeft 0.5s ease-out; /* Apply animation */
+}
+
+footer {
+  background-color: #1c2930;
+}
+.footer {
+  flex-shrink: 0; /* Don't shrink footer when content is short */
+  margin-top: auto; /* Push footer to bottom */
+  margin-right: 20px;
+  padding-bottom: 20px;
+  padding: 20px 0; /* Adjust padding as needed */
+  /* text-align: center; Align content in the center */
+  min-height: 500px;
+  min-width: 100% !important;
+}
+.footer-horizontal-line {
+  border-top: 1px solid #dee2e6; /* Softer color with increased thickness */
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  margin: auto;
+  text-align: center;
+  margin-top: 100px;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 20px;
+}
+.footer-title {
+  font-size: 14px;
+  font-weight: bold;
+  /* font-weight: 800px; */
+  text-align:start;
+  color: white;
+  margin-top: 30px;
+}
+.footer-items {
+  text-align:start;
+  margin-top: 12px;
+  font-size: 14px;
+  color: lightgray;
+  display: flex;
+  align-items: center;
+}
+.footer-items:hover {
+  color: white;
+  text-decoration: underline;
+}
+.copyright {
+  color: white;
+}
+hr {
+  color: gray;
+}
