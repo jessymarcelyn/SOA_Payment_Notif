@@ -43,7 +43,7 @@ RUN pip wheel .
 RUN ls /application/wheelhouse
 
 # Stage 3: Install Image
-FROM base as install
+FROM nameko-example-base as install
 
 COPY --from=builder /application/wheelhouse /wheelhouse
 
