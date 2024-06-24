@@ -1,11 +1,11 @@
 from nameko.rpc import rpc
-import dependencies as notifDependecies
+import notification.dependencies as notifDependencies
 
 class Notifservice:
 
     name = 'notif_service'
 
-    database = notifDependecies.Database()
+    database = notifDependencies.Database()
 
     @rpc
     def get_all_notif(self):
