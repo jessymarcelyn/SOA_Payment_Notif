@@ -2,9 +2,9 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='nameko-example-ovo',
+    name='nameko-example-gopay',
     version='0.0.1',
-    description='Ovo service with Nameko',
+    description='Gopay service with Nameko',
     author='nameko',
     packages=find_packages(exclude=['test', 'test.*']),
     # py_modules=['user'],
