@@ -171,8 +171,8 @@ class Database(DependencyProvider):
                 pool_name="database_pool",
                 pool_size=10,
                 pool_reset_session=True,
-                host='localhost',
-                database='soa',
+                host='nameko-example-mysql',
+                database='soa_payment_notif',
                 user='root',
                 password=''
             )
