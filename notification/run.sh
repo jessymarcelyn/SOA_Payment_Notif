@@ -8,5 +8,6 @@ until nc -z ${RABBIT_HOST} ${RABBIT_PORT}; do
 done
 
 # Run Service
+export PYTHONPATH=$(pwd)
 
 nameko run --config config.yml notification.notif --backdoor 3000
