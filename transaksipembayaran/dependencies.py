@@ -172,6 +172,7 @@ class Database(DependencyProvider):
                 pool_size=10,
                 pool_reset_session=True,
                 host='nameko-example-mysql',
+                port='3306',
                 database='soa_payment_notif',
                 user='root',
                 password='password'
