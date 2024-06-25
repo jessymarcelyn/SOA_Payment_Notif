@@ -6,8 +6,6 @@ from mysql.connector.pooling import MySQLConnectionPool
 
 import hashlib
 from datetime import datetime
-import random
-import string
 import numpy as np
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend

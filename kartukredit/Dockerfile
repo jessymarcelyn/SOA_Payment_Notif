@@ -51,7 +51,7 @@ COPY --from=builder /application/wheelhouse /wheelhouse
 RUN pip install --no-index -f /wheelhouse nameko_example_kartukredit
 
 # Install additional required packages
-RUN pip install pytz mysql-connector-python cryptography numpy
+RUN pip install pytz mysql-connector-python cryptography numpy datetime hashlib os base64
 
 # Stage 4: Final Service Image
 FROM base as service
