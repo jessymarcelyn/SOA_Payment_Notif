@@ -62,7 +62,7 @@ COPY --from=install /appenv /appenv
 RUN mkdir -p /var/nameko/
 COPY config.yml /var/nameko/config.yml
 COPY run.sh /var/nameko/run.sh
-COPY . /var/nameko/ transaksipembayaran /
+COPY . /var/nameko/ transaksipembayaran/
 
 # Set permissions for run.sh
 RUN chmod +x /var/nameko/run.sh
