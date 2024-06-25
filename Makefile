@@ -1,6 +1,6 @@
 HTMLCOV_DIR ?= htmlcov
 TAG ?= dev
-IMAGES := transaksipembayaran kartukredit notification ovo gopay gateway
+IMAGES := transaksipembayaran kartukredit notification ovo gopay bca mandiri gateway
 
 install-dependencies:
 	pip install -U -e "transaksipembayaran/.[dev]"
@@ -9,6 +9,7 @@ install-dependencies:
 	pip install -U -e "ovo/.[dev]"
 	pip install -U -e "gopay/.[dev]"
 	pip install -U -e "bca/.[dev]"
+	pip install -U -e "mandiri/.[dev]"
 	pip install -U -e "gateway/.[dev]"
 
 # docker
