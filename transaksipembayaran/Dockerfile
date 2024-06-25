@@ -62,7 +62,22 @@ COPY --from=install /appenv /appenv
 RUN mkdir -p /var/nameko/
 COPY config.yml /var/nameko/config.yml
 COPY run.sh /var/nameko/run.sh
-COPY . /var/nameko/transaksipembayaran/
+COPY . /var/nameko/ transaksipembayaran /
 
 # Set permissions for run.sh
 RUN chmod +x /var/nameko/run.sh
+
+# Set PYTHONPATH to include the /var/nameko directory
+ENV PYTHONPATH=/var/nameko
+
+# Switch to non-root user
+USER nameko
+
+# Set working directory
+WORKDIR /var/nameko/
+
+# Expose port for the service
+EXPOSE 8000
+
+# Define the command to run the service
+CMD ["/var/nameko/run.sh"]
