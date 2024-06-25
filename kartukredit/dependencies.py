@@ -1,6 +1,9 @@
 from nameko.extensions import DependencyProvider
+
 import mysql.connector
 from mysql.connector import Error, pooling
+from mysql.connector.pooling import MySQLConnectionPool
+
 import hashlib
 from datetime import datetime
 import random
@@ -454,7 +457,13 @@ class Database(DependencyProvider):
             )
         except Error as e :
             print ("Error while connecting to MySQL using Connection pool ", e)
-
+            
+    def stop(self):
+        # Called when the container is stopped
+        if self.connection_pool:
+            self.connection_pool.close()
+            print("MySQL Connection Pool closed")
+            
     def get_dependency(self, worker_ctx):
         connection = self.connection_pool.get_connection()
         return DatabaseWrapper(connection, self.encryption_key)
