@@ -132,7 +132,7 @@ services:
       - rabbit
       - mysql
     ports:
-      - "8006:8000"
+      - "8007:8000"
     links:
       - "rabbit:nameko-example-rabbitmq"
       - "mysql:nameko-example-mysql"
