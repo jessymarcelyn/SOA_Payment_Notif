@@ -1,7 +1,5 @@
 from nameko.rpc import rpc
-import dependencies
- 
-
+import ovo.dependencies as dependencies
 
 class PaymentService:
 
