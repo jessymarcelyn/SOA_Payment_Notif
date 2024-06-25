@@ -6,6 +6,7 @@ install-dependencies:
 	pip install -U -e "transaksipembayaran/.[dev]"
 	pip install -U -e "kartukredit/.[dev]"
 	pip install -U -e "notification/.[dev]"
+	pip install -U -e "ovo/.[dev]"
 	pip install -U -e "gateway/.[dev]"
 
 # docker
