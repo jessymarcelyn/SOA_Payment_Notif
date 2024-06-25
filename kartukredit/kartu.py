@@ -1,11 +1,11 @@
 from nameko.rpc import rpc
-import kartukredit.dependencies as Dependencies
+import kartukredit.dependencies as dependencies
 
 class KartuService:
 
     name = 'kartu_service'
 
-    database = Dependencies.Database()
+    database = dependencies.Database()
 
     @rpc
     def hello(self):
