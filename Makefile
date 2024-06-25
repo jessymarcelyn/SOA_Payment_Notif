@@ -8,6 +8,7 @@ install-dependencies:
 	pip install -U -e "notification/.[dev]"
 	pip install -U -e "ovo/.[dev]"
 	pip install -U -e "gopay/.[dev]"
+	pip install -U -e "bca/.[dev]"
 	pip install -U -e "gateway/.[dev]"
 
 # docker

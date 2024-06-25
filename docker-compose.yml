@@ -124,6 +124,27 @@ services:
       RABBIT_USER: "guest"
       RABBIT_PASSWORD: "guest" 
       RABBIT_MANAGEMENT_PORT: "15672"
+  
+  bca:
+    build: ./bca
+    container_name: nameko-example-bca
+    depends_on:
+      - rabbit
+      - mysql
+    ports:
+      - "8006:8000"
+    links:
+      - "rabbit:nameko-example-rabbitmq"
+      - "mysql:nameko-example-mysql"
+    environment:
+      MYSQL_PASSWORD: "password"
+      MYSQL_HOST: "mysql"
+      MYSQL_DB: "soa_payment_notif"
+      RABBIT_HOST: "rabbit"
+      RABBIT_PORT: "5672"
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest" 
+      RABBIT_MANAGEMENT_PORT: "15672"
 
 
   gateway:
