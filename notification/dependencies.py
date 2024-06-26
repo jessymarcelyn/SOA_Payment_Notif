@@ -21,7 +21,7 @@ class DatabaseWrapper:
     def __init__(self, connection):
         self.connection = connection
 
-    #GET all notif
+#GET all notif
     def get_all_notif(self):
         cursor = self.connection.cursor(dictionary=True)
         result = []
@@ -322,7 +322,6 @@ class DatabaseWrapper:
         self.connection.commit()
         cursor.close()
         return True
-    
 
 class Database(DependencyProvider):
 

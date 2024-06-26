@@ -41,7 +41,7 @@ class DatabaseWrapper:
         if result['pin'] == pin:
             return True
         else:
-            return False, "Pin tidak valid"
+            return False
         
     #aman 
     def check_saldo(self, no_telp, nominal):
@@ -57,7 +57,7 @@ class DatabaseWrapper:
         if result['saldo'] >= nominal:
             return True
         else:
-            return False, "Saldo tidak cukup"
+            return False
         
     #aman 
     def update_saldo(self, no_telp, nominal):
@@ -169,14 +169,18 @@ class DatabaseWrapper:
         else:
             return False
         
-    def get_timestamp(self, id_transaksi):
+    def get_timestamp_by_transaksi(self, id_transaksi):
         cursor = self.connection.cursor(dictionary=True)
         sql = "SELECT timestamp FROM transaksigopay WHERE id = %s"
         cursor.execute(sql, (id_transaksi,))
         result = cursor.fetchone()
-        return result['timestamp']  # Return only timestamp
-
-
+        if result:
+            timestamp = result['timestamp']
+            if isinstance(timestamp, datetime):
+                return timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                return timestamp
+        return None # Return only timestamp
 
     
     

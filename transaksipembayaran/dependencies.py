@@ -27,7 +27,7 @@ class DatabaseWrapper:
     def __init__(self, connection):
         self.connection = connection
    
-    def get__byIDPesanan(self, IDPesanan):
+    def get_byIDPesanan(self, IDPesanan):
         cursor = self.connection.cursor(dictionary=True)
         result = []
         sql = "SELECT * FROM trans_pembayaran WHERE id_pesanan = {}" .format((IDPesanan))
@@ -48,7 +48,7 @@ class DatabaseWrapper:
         else:
             return None
         
-    def get__byIDTransaksi(self, IDTransaksi):
+    def get_byIDTransaksi(self, IDTransaksi):
         cursor = self.connection.cursor(dictionary=True)
         result = []
         sql = "SELECT * FROM trans_pembayaran WHERE id_transaksi = {}" .format((IDTransaksi))
@@ -69,7 +69,7 @@ class DatabaseWrapper:
         else:
             return None
         
-    def update__byIDTransaksi(self, IDTransaksi, jenis_pembayaran, nama_penyedia, status):
+    def update_byIDTransaksi(self, IDTransaksi, jenis_pembayaran, nama_penyedia, status):
 
         cursor = self.connection.cursor(dictionary=True)
         sql = "UPDATE trans_pembayaran SET timestamp = NOW(), jenis_pembayaran = %s, nama_penyedia = %s, status = %s WHERE id_transaksi = %s"
@@ -81,12 +81,10 @@ class DatabaseWrapper:
         return get
     
     def create_pembayaran(self, id_pesanan, id_pesanan2, total_transaksi):
-        logger.debug(f"Creating payment for orders {id_pesanan} and {id_pesanan2} with total {total_transaksi}")
         print("masuk")
         cursor = self.connection.cursor(dictionary=True)
         status = "initial"
-        # timestamp = datetime.now()
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = datetime.now()
         sql = ("INSERT INTO trans_pembayaran (id_pesanan, id_pesanan2, total_transaksi, status, timestamp ) "
                "VALUES (%s, %s, %s, %s, %s)")
 
@@ -165,6 +163,36 @@ class DatabaseWrapper:
             return False
 
         finally:
+            print("status sukses")
+            cursor.close()
+
+    def update_pembayaransukses(self, id_pesanan, id_transaksi, jenis_pembayaran, nama_penyedia):
+        print("masuk update2")
+        cursor = self.connection.cursor(dictionary=True)
+
+        try:
+            status = "success"
+            timestamp = datetime.now()
+            sql = "UPDATE trans_pembayaran SET id_transaksi = %s, jenis_pembayaran = %s,  nama_penyedia = %s, status= %s, timestamp = %s WHERE id_pesanan = %s"
+            val = (id_transaksi, jenis_pembayaran, nama_penyedia, status, timestamp, id_pesanan)
+            print("id_transaksi ", id_transaksi)
+            print("jenis_pembayaran ", jenis_pembayaran)
+            print("nama_penyedia ", nama_penyedia)
+            print("status ", status)
+            print("timestamp ", timestamp)
+            print("id_pesanan ", id_pesanan)
+
+            cursor.execute(sql, val)
+            self.connection.commit()
+            
+            return True
+
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            return False
+
+        finally:
+            print("status sukses")
             cursor.close()
         
 class Database(DependencyProvider):
@@ -183,6 +211,7 @@ class Database(DependencyProvider):
                 database='soa_payment_notif',
                 user='root',
                 password='password'
+
             )
         except Error as e :
             print ("Error while connecting to MySQL using Connection pool ", e)
