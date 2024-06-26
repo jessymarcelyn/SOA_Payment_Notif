@@ -76,7 +76,7 @@ class DatabaseWrapper:
         cursor.execute(sql, (jenis_pembayaran, nama_penyedia, status, IDTransaksi))
         self.connection.commit()
         cursor.close() 
-        get = self.get__byIDTransaksi(IDTransaksi)
+        get = self.get_byIDTransaksi(IDTransaksi)
         # return {"Status updated to success. Payment is already paid."}
         return get
     
