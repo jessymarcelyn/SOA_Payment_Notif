@@ -13,8 +13,8 @@ class GatewayService:
 
     # Get berdasarkan id_pesanan
     @http('GET', '/Tpembayaran/pesanan/<int:IDPesanan>')
-    def get__byIDPesananTP(self, request, IDPesanan):
-        exist = self.TransP_rpc.get__byIDPesanan(IDPesanan)
+    def get_byIDPesananTP(self, request, IDPesanan):
+        exist = self.TransP_rpc.get_byIDPesanan(IDPesanan)
         if exist:
             return Response(json.dumps(exist), status=200, mimetype='application/json')
         else:
@@ -22,8 +22,8 @@ class GatewayService:
         
     # Get berdasarkan id_transaksi
     @http('GET', '/Tpembayaran/transaksi/<int:IDTransaksi>')
-    def get__byIDTransaksiTP(self, request, IDTransaksi):
-        exist = self.TransP_rpc.get__byIDTransaksi(IDTransaksi)
+    def get_byIDTransaksiTP(self, request, IDTransaksi):
+        exist = self.TransP_rpc.get_byIDTransaksi(IDTransaksi)
         if exist:
             return Response(json.dumps(exist), status=200, mimetype='application/json')
         else:
@@ -31,8 +31,8 @@ class GatewayService:
         
     # Update berdasarkan id_transaksi (jenis_pembayaran, nama_penyedia)
     @http('PUT', '/Tpembayaran/transaksi/<int:IDTransaksi>')
-    def update__byIDTransaksiTP(self, request, IDTransaksi):
-        exist = self.TransP_rpc.get__byIDTransaksi(IDTransaksi)
+    def update_byIDTransaksiTP(self, request, IDTransaksi):
+        exist = self.TransP_rpc.get_byIDTransaksi(IDTransaksi)
         if exist:
             try:
                 data = json.loads(request.get_data(as_text=True))
