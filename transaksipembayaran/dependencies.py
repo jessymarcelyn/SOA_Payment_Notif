@@ -8,6 +8,11 @@ import pytz
 from cryptography.fernet import Fernet
 import hashlib
 import base64
+import logging
+
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -76,6 +81,7 @@ class DatabaseWrapper:
         return get
     
     def create_pembayaran(self, id_pesanan, id_pesanan2, total_transaksi):
+        logger.debug(f"Creating payment for orders {id_pesanan} and {id_pesanan2} with total {total_transaksi}")
         print("masuk")
         cursor = self.connection.cursor(dictionary=True)
         status = "initial"
