@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2024 at 05:43 AM
+-- Generation Time: Jun 26, 2024 at 12:44 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -115,7 +115,7 @@ CREATE TABLE `kartu` (
 --
 
 INSERT INTO `kartu` (`id_kartu`, `nama`, `nomer_kartu`, `cvv`, `expired_year`, `expired_month`, `limit_maks`, `limit_terpakai`, `status`) VALUES
-(25, 'Jessy', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc', 2029, 6, '5000000', '0', 1),
+(25, 'Jessy', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc', 2029, 6, '5000000', '200000', 1),
 (26, 'Rina', 'e85acad0a469f9166744a79a1c9d33a11f735abca10f328b48ebbce3c10e75a8', 'f747870ae666c39b589f577856a0f7198b3b81269cb0326de86d8046f2cf72db', 2026, 5, '2000000', '0', 1),
 (28, 'Hendra', '6993cf0cc46026086a561a3feba3dc8a6a593d32ab31d1e8b802ca51b4f3de19', '8ede6b26343305e05c3c0029f4e830d4e8c2016869a9d1cd97b100b2a16dfd1c', 2022, 3, '2000000', '0', 0),
 (29, 'Santi', '855229ffcc832335b086c46feb926e6f4e013759a199c9d777ac51bb38a2533a', '793733573a1dfd14a2e889a11b2ad7b6981de29df813863b528dc1ae99416eeb', 2025, 2, '1000000', '0', 0),
@@ -165,7 +165,18 @@ INSERT INTO `notifikasi` (`id_notif`, `id_user`, `id_pesanan`, `tipe_notif`, `ju
 (151, 1, 16, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 16', '2024-06-26 09:51:55', '2024-06-26 09:51:55', 1, NULL),
 (152, 1, 16, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 539236', '2024-06-26 05:11:23', '2024-06-26 10:11:23', 0, NULL),
 (153, 1, 16, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 16', '2024-06-26 10:14:04', '2024-06-26 10:14:04', 1, 'asdasda'),
-(154, 1, 16, 'pembayaran', 'Pembayaran Berhasil', 'Pembayaran untuk pesanan 16 berhasil', '2024-06-26 10:12:33', '2024-06-26 10:12:33', 0, NULL);
+(154, 1, 16, 'pembayaran', 'Pembayaran Berhasil', 'Pembayaran untuk pesanan 16 berhasil', '2024-06-26 10:12:33', '2024-06-26 10:12:33', 0, NULL),
+(155, 1, 21, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 724188', '2024-06-26 11:02:47', '2024-06-26 11:02:47', 1, NULL),
+(156, 1, 21, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 21', '2024-06-26 11:03:42', '2024-06-26 11:03:42', 1, NULL),
+(157, 1, 22, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 476782', '2024-06-26 06:09:20', '2024-06-26 11:09:20', 0, NULL),
+(158, 1, 22, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 22', '2024-06-26 11:10:16', '2024-06-26 11:10:16', 1, NULL),
+(159, 1, 22, 'pembayaran', 'Pembayaran Berhasil', 'Pembayaran untuk pesanan 22 berhasil', '2024-06-26 11:12:34', '2024-06-26 11:12:34', 1, NULL),
+(160, 1, 23, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 633443', '2024-06-26 06:10:55', '2024-06-26 11:10:55', 0, NULL),
+(161, 1, 23, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 23', '2024-06-26 11:12:14', '2024-06-26 11:12:14', 1, NULL),
+(162, 1, 24, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 204384', '2024-06-26 06:12:54', '2024-06-26 11:13:00', 0, NULL),
+(163, 1, 24, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 24', '2024-06-26 11:15:16', '2024-06-26 11:15:16', 1, NULL),
+(164, 1, 25, 'pembayaran', 'OTP', 'Silahkan lakukan pembayaran dengan OTP ini 858305', '2024-06-26 06:16:47', '2024-06-26 11:16:47', 0, NULL),
+(165, 1, 25, 'pembayaran', 'Lakukan Pembayaran', 'Silahkan lakukan pembayaran untuk pesanan 25', '2024-06-26 11:18:49', '2024-06-26 11:18:49', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -238,9 +249,9 @@ CREATE TABLE `transaksi_kartu` (
   `nomer_kartu` varchar(255) NOT NULL,
   `nominal` decimal(10,0) NOT NULL,
   `status` varchar(10) NOT NULL,
-  `otp` varchar(255) NOT NULL,
-  `otp_timestamp` datetime NOT NULL,
-  `attempt` int(11) NOT NULL
+  `otp` varchar(255) DEFAULT NULL,
+  `otp_timestamp` datetime DEFAULT NULL,
+  `attempt` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -256,7 +267,13 @@ INSERT INTO `transaksi_kartu` (`id_transaksi`, `timestamp`, `nomer_kartu`, `nomi
 (128, '2024-06-26 09:13:58', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'success', 'lttV358Mj7Ut+Fl01PFJud1AAEGR9w==', '2024-06-26 09:13:58', 1),
 (129, '2024-06-26 09:16:47', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'success', 'guz/Y+qUTjSMWwgMct+wnRN5dkW93g==', '2024-06-26 09:16:47', 2),
 (130, '2024-06-26 09:51:09', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'ongoing', 'ahxZ8SzN9NnZzajLYOijuDQ2VOLgAA==', '2024-06-26 09:51:09', 3),
-(131, '2024-06-26 10:11:23', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'success', 'w1XtXF/pp5tpyZeTpRD6IGfWWmQ6uQ==', '2024-06-26 10:11:23', 1);
+(131, '2024-06-26 10:11:23', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'success', 'w1XtXF/pp5tpyZeTpRD6IGfWWmQ6uQ==', '2024-06-26 10:11:23', 1),
+(132, '2024-06-26 11:02:32', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'ongoing', 'QTbvPjsBYcQt08W1hRFqMCxb24R1QQ==', '2024-06-26 11:02:32', 3),
+(133, '2024-06-26 11:09:20', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'success', 'PCcKPVXdMAo2hJYFJikfFYb3mB1v0w==', '2024-06-26 11:09:20', 1),
+(134, '2024-06-26 11:10:55', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'failed', 'ac0cUj8w2nyhXR7aUd6p3fBr364ORw==', '2024-06-26 11:10:55', 3),
+(135, '2024-06-26 11:12:53', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'ongoing', 'VJSFa7a+qT60V08VMlCcI6+gU+iYqw==', '2024-06-26 11:12:53', 0),
+(136, '2024-06-26 11:16:47', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '200000', 'failed', 'ZLDFkgpRS/FfbuxApWn7A6MeVXmmcA==', '2024-06-26 11:16:47', 0),
+(137, '2024-06-26 14:28:33', '85df00411f072d601b21fc2e6db9e83e01d04d11169bc7f306e13d6b4c57e99b', '100000', 'ongoing', 'p55FaFf7D5FFFGgjm9TrXbn/kCMz6Q==', '2024-06-26 14:28:33', 0);
 
 -- --------------------------------------------------------
 
@@ -278,7 +295,7 @@ CREATE TABLE `transbca` (
 --
 
 INSERT INTO `transbca` (`id`, `timestamp_trans`, `no_telp`, `nominal`, `status`, `va`) VALUES
-(27, '2024-06-24 10:48:18', '081211366021', 500000, 'ongoing', '122081211366'),
+(27, '2024-06-26 12:28:25', '081211366021', 500000, 'success', '122081211366'),
 (28, '2024-06-26 09:28:40', '081211366021', 500000, 'ongoing', '122081211366'),
 (29, '2024-06-26 09:28:56', '081211366021', 500000, 'ongoing', '122081211366'),
 (30, '2024-06-26 09:33:45', '081211366021', 500000, 'ongoing', '122081211366'),
@@ -319,11 +336,11 @@ CREATE TABLE `trans_pembayaran` (
   `id_pembayaran` int(100) NOT NULL,
   `id_pesanan` int(100) NOT NULL,
   `id_pesanan2` int(100) DEFAULT NULL,
-  `id_transaksi` int(100) NOT NULL,
+  `id_transaksi` int(100) DEFAULT NULL,
   `total_transaksi` double NOT NULL,
   `timestamp` datetime NOT NULL,
-  `jenis_pembayaran` varchar(100) NOT NULL,
-  `nama_penyedia` varchar(100) NOT NULL,
+  `jenis_pembayaran` varchar(100) DEFAULT NULL,
+  `nama_penyedia` varchar(100) DEFAULT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -358,7 +375,14 @@ INSERT INTO `trans_pembayaran` (`id_pembayaran`, `id_pesanan`, `id_pesanan2`, `i
 (291, 15, NULL, 32, 100000, '2024-06-26 09:37:41', 'TransferBank', 'BCA', 'ongoing'),
 (292, 16, NULL, 131, 100000, '2024-06-26 10:11:23', 'kartukredit', 'mastercard', 'success'),
 (293, 17, NULL, 34, 100000, '2024-06-26 09:47:19', 'TransferBank', 'BCA', 'ongoing'),
-(294, 16, NULL, 131, 100000, '2024-06-26 10:11:23', 'kartukredit', 'mastercard', 'success');
+(294, 16, NULL, 131, 100000, '2024-06-26 10:11:23', 'kartukredit', 'mastercard', 'success'),
+(296, 21, NULL, 132, 100000, '2024-06-26 11:02:32', 'kartukredit', 'mastercard', 'failed'),
+(297, 22, NULL, 133, 100000, '2024-06-26 11:09:20', 'kartukredit', 'mastercard', 'success'),
+(298, 23, NULL, 134, 100000, '2024-06-26 11:10:55', 'kartukredit', 'mastercard', 'failed'),
+(299, 24, NULL, 135, 100000, '2024-06-26 11:12:54', 'kartukredit', 'mastercard', 'failed'),
+(300, 25, NULL, 136, 100000, '2024-06-26 11:16:47', 'kartukredit', 'mastercard', 'failed'),
+(301, 24, NULL, 0, 20000, '2024-06-26 11:54:30', '', '', 'initial'),
+(302, 30, 1, 0, 10000, '2024-06-26 10:44:41', '', '', 'ongoing');
 
 --
 -- Indexes for dumped tables
@@ -470,7 +494,7 @@ ALTER TABLE `kartu`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `ovo`
@@ -494,7 +518,7 @@ ALTER TABLE `transaksiovo`
 -- AUTO_INCREMENT for table `transaksi_kartu`
 --
 ALTER TABLE `transaksi_kartu`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `transbca`
@@ -512,7 +536,7 @@ ALTER TABLE `transmandiri`
 -- AUTO_INCREMENT for table `trans_pembayaran`
 --
 ALTER TABLE `trans_pembayaran`
-  MODIFY `id_pembayaran` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+  MODIFY `id_pembayaran` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=303;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
