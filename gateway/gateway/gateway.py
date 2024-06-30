@@ -262,14 +262,11 @@ class GatewayService:
         except Exception as e:
             return 500, json.dumps({"error": str(e)})
         
-    @http('GET', '/BCA/pin/<string:VA>/<string:pin>')
+    @http('GET', '/BCA/VA/<string:VA>/pin/<string:pin>')
     def CheckPinBCA(self, request, VA, pin):
         no = VA[3:]
         check = self.BBCA_rpc.CheckPin(no, pin)
-        if check: 
-            return Response(json.dumps('hhh'), status=200, mimetype='application/json')
-        else:
-            return Response(json.dumps('Wrong VA or PIN Please try again'), status=404, mimetype='application/json')
+        return json.dumps(check)
 
     #GET status berdasarkan id_transaksi
     @http('GET', '/transBCA/status/<int:idTrans>')
@@ -370,14 +367,11 @@ class GatewayService:
         except Exception as e:
             return 500, json.dumps({"error": str(e)})
         
-    @http('GET', '/Mandiri/pin/<string:VA>/<string:pin>')
+    @http('GET', '/Mandiri/VA/<string:VA>/pin/<string:pin>')
     def CheckPinMandiri(self, request, VA, pin):
         no = VA[3:]
         check = self.BMandiri_RPC.CheckPin(no, pin)
-        if check: 
-            return Response(json.dumps('hhh'), status=200, mimetype='application/json')
-        else:
-            return Response(json.dumps('Wrong VA or PIN Please try again'), status=404, mimetype='application/json')
+        return json.dumps(check)
 
     #GET status berdasarkan id_transaksi
     @http('GET', '/transMandiri/status/<int:idTrans>')
