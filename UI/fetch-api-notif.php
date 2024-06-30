@@ -4,6 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+date_default_timezone_set('Asia/Jakarta');
+
 // Periksa apakah parameter idUser dikirim melalui metode POST
 if (isset($_POST['idUser']) && isset($_POST['notifType'])) {
     // Escape string untuk mencegah serangan SQL injection

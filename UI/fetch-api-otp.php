@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 if (isset($_POST['id_pesanan']) && isset($_POST['otp'])) {
 
     $id_pesanan = htmlspecialchars($_POST['id_pesanan']);
@@ -81,7 +82,7 @@ if (isset($_POST['id_pesanan']) && isset($_POST['otp'])) {
                         if ($resultAttempt[0]['attempt'] < 3) {
 
 
-                            $url = "http://44.195.103.224:8009/kartu_kredit/transaksi/{$idTrans}/otp/{$otp}";
+                            $url = "http://44.195.103.224:8009//kartu_kredit/transaksi/{$idTrans}/otp/{$otp}";
 
                             // Initialize cURL
                             $ch = curl_init();
@@ -248,7 +249,7 @@ if (isset($_POST['id_pesanan']) && isset($_POST['otp'])) {
 
                                                                         // $putEricDataJson = json_encode($putNoputEricDatatifData);
 
-                                                                        // $urlEric =  "http://localhost:8000/kartu_kredit/transaksi/{$idTrans}/status/failed";
+                                                                        // $urlEric =  "http://44.195.103.224:8009/kartu_kredit/transaksi/{$idTrans}/status/failed";
 
                                                                         // $chEric = curl_init();
                                                                         // // Set cURL options
@@ -361,7 +362,7 @@ if (isset($_POST['id_pesanan']) && isset($_POST['otp'])) {
                                                             echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
                                                         } else {
                                                             //update status transaksi jadi failed
-                                                            $putUrl = "http://44.195.103.224:8009/pembayaran/pesanan/$id_pesanan/status/failed";
+                                                            $putUrl = "http://44.195.103.224:8009/Tpembayaran/pesanan/$id_pesanan/status/failed";
 
                                                             // Initialize cURL session
                                                             $chPut = curl_init();

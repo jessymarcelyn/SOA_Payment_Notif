@@ -32,35 +32,30 @@ if (isset($_POST['id_pesanan'])) {
             $transaction = $resultCheck['data'][0]; // Accessing the first element of the data array
 
             if (isset($transaction['id_transaksi'])) {
+                $timestamp = $resultCheck['data'][0]['timestamp'];
+
+                date_default_timezone_set('Asia/Jakarta');
+
+                $timestamp_unix = strtotime($timestamp);
+
+                $current_time = date('Y-m-d H:i:s');
+                $current_timee = strtotime($current_time);
+
+                $difference_seconds = abs($current_timee - $timestamp_unix);
+                $difference_minutes  = $difference_seconds / 60;
+
                 $id_transaksi = $transaction['id_transaksi'];
-                $bank = $transaction['nama_penyedia'];
-                $status = $transaction['status'];
+                if ($difference_minutes <= 2) {
+                    $bank = $transaction['nama_penyedia'];
+                    $status = $transaction['status'];
 
-                // if ($resultCheck['code'] == 200) {
-                //     $id_transaksi = $resultCheck['data']['id_transaksi'];
-                //     $bank = $resultCheck['data']['nama_penyedia'];
-                // }
-
-                if ($bank == 'BCA') {
-                    $GetTime = "http://44.195.103.224:8009/transBCA/timestamp/{$id_transaksi}";
-                } else if ($bank == 'Mandiri') {
-                    $GetTime = "http://44.195.103.224:8009/transMandiri/timestamp/{$id_transaksi}";
-                }
-
-                $chGetTime = curl_init();
-                curl_setopt($chGetTime, CURLOPT_URL, $GetTime);
-                curl_setopt($chGetTime, CURLOPT_RETURNTRANSFER, true);
-
-                $responseGetTime = curl_exec($chGetTime);
-
-                if (curl_errno($chGetTime)) {
-                    echo json_encode(['code' => 500, 'message' => 'Error executing request']);
-                } else {
-                    curl_close($chGetTime);
-                    $resultGetTime = json_decode($responseGetTime, true);
+                    // if ($resultCheck['code'] == 200) {
+                    //     $id_transaksi = $resultCheck['data']['id_transaksi'];
+                    //     $bank = $resultCheck['data']['nama_penyedia'];
+                    // }
 
 
-                    if ($resultGetTime['data'] === true && $status !== 'failed') {
+                    if ($status !== 'failed') {
                         // if ($resultGetTime == True && $status != 'failed' ) {
                         if (isset($_POST['va']) && isset($_POST['pin'])) {
 
@@ -94,7 +89,7 @@ if (isset($_POST['id_pesanan'])) {
                                         if ($bank == 'BCA') {
                                             $Get2Url = "http://44.195.103.224:8009/BCA/VA/{$va}/pin/{$pin}";
                                         } else if ($bank == 'Mandiri') {
-                                            $Get2Url = "http://44.195.103.224:8009/Mandiri/VA/{$va}/pin/{$pin}";
+                                            $Get2Url = "http://44.195.103.224:8009//Mandiri/VA/{$va}/pin/{$pin}";
                                         }
 
                                         $chGet2 = curl_init();
@@ -113,12 +108,12 @@ if (isset($_POST['id_pesanan'])) {
                                             if ($resultGet2 === null && json_last_error() !== JSON_ERROR_NONE) {
                                                 echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response']);
                                             } else {
-                                                // echo json_encode($resultGet2);
-                                                if ($resultGet2 == true) { #kalau pin benar
+                                                echo json_encode($resultGet2);
+                                                if ($resultGet2['data'] == true) { #kalau pin benar
 
                                                     #update tras_bca dan update trans_pembayaran
                                                     if ($bank == 'BCA') {
-                                                        $urlPutBank = "http://44.195.103.224:8009/ransBCA/{$id_transaksi}";
+                                                        $urlPutBank = "http://44.195.103.224:8009/transBCA/{$id_transaksi}";
                                                     } else if ($bank == 'Mandiri') {
                                                         $urlPutBank = "http://44.195.103.224:8009/transMandiri/{$id_transaksi}";
                                                     }
@@ -149,7 +144,7 @@ if (isset($_POST['id_pesanan'])) {
                                                             curl_setopt($chPost, CURLOPT_POSTFIELDS, json_encode(array(
                                                                 'id_user' => 1,
                                                                 'id_pesanan' => $id_pesanan,
-                                                                'tipe_notif' => 'keuangan',
+                                                                'tipe_notif' => 'pembayaran',
                                                                 'judul' => "Pembayaran untuk pesanan $id_pesanan berhasil ",
                                                                 'deskripsi' => "Pembayaran untuk pesanan $id_pesanan dengan virtual account bank $bank telah berhasil",
                                                                 'timestamp_masuk' => date('Y-m-d H:i:s'), // Current timestamp
@@ -209,7 +204,7 @@ if (isset($_POST['id_pesanan'])) {
                                                                         } else {
                                                                             // echo json_encode($resultGet2);
                                                                             $statusUpdate = 'success';
-                                                                            $putSUrl = "hhttp://44.195.103.224:8009/Tpembayaran/pesanan/{$id_pesanan}/status/{$statusUpdate}";
+                                                                            $putSUrl = "http://44.195.103.224:8009/Tpembayaran/pesanan/{$id_pesanan}/status/{$statusUpdate}";
                                                                             $chS = curl_init();
 
                                                                             curl_setopt($chS, CURLOPT_URL, $putSUrl);
@@ -231,39 +226,82 @@ if (isset($_POST['id_pesanan'])) {
                                                                                 if ($resultS === null && json_last_error() !== JSON_ERROR_NONE) {
                                                                                     echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response failed trans_pembayaran']);
                                                                                 } else {
-                                                                                    // $putEricData = [
-                                                                                    //     'status' => 1
-                                                                                    // ];
+                                                                                    // GANTI LINK NOTIF
+                                                                                    $putData = [
+                                                                                        'judul' => 'VA'
+                                                                                    ];
 
-                                                                                    // $putEricDataJson = json_encode($putNoputEricDatatifData);
+                                                                                    // Encode data as JSON
+                                                                                    $putDataJson = json_encode($putData);
 
-                                                                                    // $urlEric =  "http://localhost:8000/kartu_kredit/transaksi/{$idTrans}/status/failed";
+                                                                                    // URL for the PUT request, assuming localhost and port 8000
+                                                                                    $putUrl = "http://44.195.103.224:8009/notif/pesanan/{$id_pesanan}";
 
-                                                                                    // $chEric = curl_init();
-                                                                                    // // Set cURL options
-                                                                                    // curl_setopt($chEric, CURLOPT_URL, $urlEric);
-                                                                                    // curl_setopt($chEric, CURLOPT_CUSTOMREQUEST, "PUT");
-                                                                                    // curl_setopt($chEric, CURLOPT_POSTFIELDS, $putEricDataJson);
-                                                                                    // curl_setopt($chEric, CURLOPT_RETURNTRANSFER, true);
-                                                                                    // curl_setopt($chEric, CURLOPT_HTTPHEADER, [
-                                                                                    //     'Content-Type: application/json',
-                                                                                    //     'Content-Length: ' . strlen($putEricDataJson)
-                                                                                    // ]);
+                                                                                    // Initialize cURL session
+                                                                                    $chPut = curl_init();
 
-                                                                                    // $responseEric = curl_exec($chEric);
+                                                                                    // Set cURL options
+                                                                                    curl_setopt($chPut, CURLOPT_URL, $putUrl);
+                                                                                    curl_setopt($chPut, CURLOPT_CUSTOMREQUEST, "PUT");
+                                                                                    curl_setopt($chPut, CURLOPT_POSTFIELDS, $putDataJson);
+                                                                                    curl_setopt($chPut, CURLOPT_RETURNTRANSFER, true);
+                                                                                    curl_setopt($chPut, CURLOPT_HTTPHEADER, [
+                                                                                        'Content-Type: application/json',
+                                                                                        'Content-Length: ' . strlen($putDataJson)
+                                                                                    ]);
 
-                                                                                    // // Check for cURL errors
-                                                                                    // if (curl_errno($chEric)) {
-                                                                                    //     echo 'Error:' . curl_error($chEric);
-                                                                                    // } else {
-                                                                                    //     curl_close($chEric);
-                                                                                    //     $resultEric = json_decode($responseEric, true);
-                                                                                    //     if ($resultEric === null && json_last_error() !== JSON_ERROR_NONE) {
-                                                                                    //         echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response failed Ericksen']);
-                                                                                    //     } else {
-                                                                                            echo json_encode($resultGet2);
-                                                                                    //     }
-                                                                                    // }
+                                                                                    // Execute cURL session
+                                                                                    $putResponse = curl_exec($chPut);
+
+                                                                                    // Check for cURL errors
+                                                                                    if (curl_errno($chPut)) {
+                                                                                        echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
+                                                                                    } else {
+                                                                                        // Close cURL session
+                                                                                        curl_close($chPut);
+
+                                                                                        // Decode response JSON
+                                                                                        $putResult = json_decode($putResponse, true);
+
+                                                                                        // Check if JSON decoding was successful
+                                                                                        if ($putResult === null && json_last_error() !== JSON_ERROR_NONE) {
+                                                                                            echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
+                                                                                        } else {
+
+                                                                                            // $putEricData = [
+                                                                                            //     'status' => 1
+                                                                                            // ];
+
+                                                                                            // $putEricDataJson = json_encode($putNoputEricDatatifData);
+
+                                                                                            // $urlEric =  "http://localhost:8000/kartu_kredit/transaksi/{$idTrans}/status/failed";
+
+                                                                                            // $chEric = curl_init();
+                                                                                            // // Set cURL options
+                                                                                            // curl_setopt($chEric, CURLOPT_URL, $urlEric);
+                                                                                            // curl_setopt($chEric, CURLOPT_CUSTOMREQUEST, "PUT");
+                                                                                            // curl_setopt($chEric, CURLOPT_POSTFIELDS, $putEricDataJson);
+                                                                                            // curl_setopt($chEric, CURLOPT_RETURNTRANSFER, true);
+                                                                                            // curl_setopt($chEric, CURLOPT_HTTPHEADER, [
+                                                                                            //     'Content-Type: application/json',
+                                                                                            //     'Content-Length: ' . strlen($putEricDataJson)
+                                                                                            // ]);
+
+                                                                                            // $responseEric = curl_exec($chEric);
+
+                                                                                            // // Check for cURL errors
+                                                                                            // if (curl_errno($chEric)) {
+                                                                                            //     echo 'Error:' . curl_error($chEric);
+                                                                                            // } else {
+                                                                                            //     curl_close($chEric);
+                                                                                            //     $resultEric = json_decode($responseEric, true);
+                                                                                            //     if ($resultEric === null && json_last_error() !== JSON_ERROR_NONE) {
+                                                                                            //         echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response failed Ericksen']);
+                                                                                            //     } else {
+                                                                                            //     }
+                                                                                            // }
+                                                                                        }
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
@@ -278,74 +316,186 @@ if (isset($_POST['id_pesanan'])) {
                                     }
                                 }
                             }
-                        }
-                    } else {
-                        // } else if ($resultGetTime == False) {
-                        //ubah notif
-                        $putNotifData = [
-                            'judul' => 'Pembayaran Gagal'
-                        ];
-
-                        $putNotifDataJson = json_encode($putNotifData);
-
-                        $putNotifurl = "http://44.195.103.224:8009/notif/pesanan/{$id_pesanan}";
-
-                        $chPutNotif = curl_init();
-
-                        // Set cURL options
-                        curl_setopt($chPutNotif, CURLOPT_URL, $putNotifurl);
-                        curl_setopt($chPutNotif, CURLOPT_CUSTOMREQUEST, "PUT");
-                        curl_setopt($chPutNotif, CURLOPT_POSTFIELDS, $putNotifDataJson);
-                        curl_setopt($chPutNotif, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($chPutNotif, CURLOPT_HTTPHEADER, [
-                            'Content-Type: application/json',
-                            'Content-Length: ' . strlen($putNotifDataJson)
-                        ]);
-
-                        $putNotifResponse = curl_exec($chPutNotif);
-                        if (curl_errno($chPutNotif)) {
-                            echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
                         } else {
-                            curl_close($chPutNotif);
+                            // } else if ($resultGetTime == False) {
+                            //ubah notif
+                            $putNotifData = [
+                                'judul' => 'Pembayaran Gagal'
+                            ];
 
-                            // Decode response JSON
-                            $putNotifResult = json_decode($putNotifResponse, true);
+                            $putNotifDataJson = json_encode($putNotifData);
 
-                            if ($putNotifResult === null && json_last_error() !== JSON_ERROR_NONE) {
-                                echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
+                            $putNotifurl = "http://44.195.103.224:8009/notif/pesanan/{$id_pesanan}";
+
+                            $chPutNotif = curl_init();
+
+                            // Set cURL options
+                            curl_setopt($chPutNotif, CURLOPT_URL, $putNotifurl);
+                            curl_setopt($chPutNotif, CURLOPT_CUSTOMREQUEST, "PUT");
+                            curl_setopt($chPutNotif, CURLOPT_POSTFIELDS, $putNotifDataJson);
+                            curl_setopt($chPutNotif, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($chPutNotif, CURLOPT_HTTPHEADER, [
+                                'Content-Type: application/json',
+                                'Content-Length: ' . strlen($putNotifDataJson)
+                            ]);
+
+                            $putNotifResponse = curl_exec($chPutNotif);
+                            if (curl_errno($chPutNotif)) {
+                                echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
                             } else {
+                                curl_close($chPutNotif);
 
-                                //ubah status di trans_pembayaran jadi failed
+                                // Decode response JSON
+                                $putNotifResult = json_decode($putNotifResponse, true);
 
-                                $statusUpdate = 'failed';
-                                $putFailedUrl = "http://44.195.103.224:8009/Tpembayaran/pesanan/{$id_pesanan}/status/{$statusUpdate}";
-                                $chF = curl_init();
-
-                                // Set cURL options for GET request
-                                curl_setopt($chF, CURLOPT_URL, $putFailedUrl);
-                                curl_setopt($chF, CURLOPT_CUSTOMREQUEST, "PUT");
-                                curl_setopt($chF, CURLOPT_RETURNTRANSFER, true);
-                                curl_setopt($chF, CURLOPT_HTTPHEADER, [
-                                    'Content-Type: application/json',
-                                    // You may need to set Content-Length depending on your data
-                                ]);
-                                // curl_setopt($chF, CURLOPT_URL, $putFailedUrl);
-                                // curl_setopt($chF, CURLOPT_RETURNTRANSFER, true);
-
-
-                                // Execute cURL and get the response
-                                $responseF = curl_exec($chF);
-
-                                // Check for cURL errors
-                                if (curl_errno($chF)) {
-                                    echo 'Error:' . curl_error($chF);
+                                if ($putNotifResult === null && json_last_error() !== JSON_ERROR_NONE) {
+                                    echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
                                 } else {
-                                    curl_close($chF);
-                                    $resultF = json_decode($responseF, true);
-                                    if ($resultF === null && json_last_error() !== JSON_ERROR_NONE) {
-                                        echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response failed trans_pembayaran']);
+
+                                    //ubah status di trans_pembayaran jadi failed
+
+                                    $statusUpdate = 'failed';
+                                    $putFailedUrl = "http://44.195.103.224:8009/Tpembayaran/pesanan/{$id_pesanan}/status/{$statusUpdate}";
+                                    $chF = curl_init();
+
+                                    // Set cURL options for GET request
+                                    curl_setopt($chF, CURLOPT_URL, $putFailedUrl);
+                                    curl_setopt($chF, CURLOPT_CUSTOMREQUEST, "PUT");
+                                    curl_setopt($chF, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($chF, CURLOPT_HTTPHEADER, [
+                                        'Content-Type: application/json',
+                                        // You may need to set Content-Length depending on your data
+                                    ]);
+                                    // curl_setopt($chF, CURLOPT_URL, $putFailedUrl);
+                                    // curl_setopt($chF, CURLOPT_RETURNTRANSFER, true);
+
+
+                                    // Execute cURL and get the response
+                                    $responseF = curl_exec($chF);
+
+                                    // Check for cURL errors
+                                    if (curl_errno($chF)) {
+                                        echo 'Error:' . curl_error($chF);
                                     } else {
-                                        echo json_encode($resultGetTime);
+                                        curl_close($chF);
+                                        $resultF = json_decode($responseF, true);
+                                        if ($resultF === null && json_last_error() !== JSON_ERROR_NONE) {
+                                            echo json_encode(['code' => 500, 'message' => 'Error decoding JSON response failed trans_pembayaran']);
+                                        } else {
+                                            echo json_encode($resultGetTime);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    echo "2";
+                    // GANTI LINK NOTIF
+                    $putData = [
+                        'judul' => 'VA'
+                    ];
+
+                    // Encode data as JSON
+                    $putDataJson = json_encode($putData);
+
+                    // URL for the PUT request, assuming localhost and port 8000
+                    $putUrl = "http://44.195.103.224:8009/notif/pesanan/{$id_pesanan}";
+
+                    // Initialize cURL session
+                    $chPut = curl_init();
+
+                    // Set cURL options
+                    curl_setopt($chPut, CURLOPT_URL, $putUrl);
+                    curl_setopt($chPut, CURLOPT_CUSTOMREQUEST, "PUT");
+                    curl_setopt($chPut, CURLOPT_POSTFIELDS, $putDataJson);
+                    curl_setopt($chPut, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($chPut, CURLOPT_HTTPHEADER, [
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($putDataJson)
+                    ]);
+
+                    // Execute cURL session
+                    $putResponse = curl_exec($chPut);
+
+                    // Check for cURL errors
+                    if (curl_errno($chPut)) {
+                        echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
+                    } else {
+                        // Close cURL session
+                        curl_close($chPut);
+
+                        // Decode response JSON
+                        $putResult = json_decode($putResponse, true);
+
+                        // Check if JSON decoding was successful
+                        if ($putResult === null && json_last_error() !== JSON_ERROR_NONE) {
+                            echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
+                        } else {
+                            $putUrl = "http://44.195.103.224:8009/Tpembayaran/pesanan/$id_pesanan/status/failed";
+
+                            // Initialize cURL session
+                            $chPut = curl_init();
+
+                            // Set cURL options for PUT request
+                            curl_setopt($chPut, CURLOPT_URL, $putUrl);
+                            curl_setopt($chPut, CURLOPT_CUSTOMREQUEST, "PUT");
+                            curl_setopt($chPut, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($chPut, CURLOPT_HTTPHEADER, [
+                                'Content-Type: application/json',
+                                // You may need to set Content-Length depending on your data
+                            ]);
+
+                            // Execute cURL and capture the response
+                            $putResponse = curl_exec($chPut);
+
+                            // Check for cURL errors
+                            if (curl_errno($chPut)) {
+                                echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
+                            } else {
+                                // update status dan limit transaksi provider kartu
+                                curl_close($chPut);
+
+                                // Decode response JSON
+                                $putResult = json_decode($putResponse, true);
+
+                                // Check if JSON decoding was successful
+                                if ($putResult === null && json_last_error() !== JSON_ERROR_NONE) {
+                                    echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
+                                } else {
+                                    //update status transaksi kartu failed
+                                    $putUrl = "http://44.195.103.224:8009/kartu_kredit/transaksi/{$id_transaksi}/status/failed";
+
+                                    // Initialize cURL session
+                                    $chPut = curl_init();
+
+                                    // Set cURL options for PUT request
+                                    curl_setopt($chPut, CURLOPT_URL, $putUrl);
+                                    curl_setopt($chPut, CURLOPT_CUSTOMREQUEST, "PUT");
+                                    curl_setopt($chPut, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($chPut, CURLOPT_HTTPHEADER, [
+                                        'Content-Type: application/json',
+                                        // You may need to set Content-Length depending on your data
+                                    ]);
+
+                                    // Execute cURL and capture the response
+                                    $putResponse = curl_exec($chPut);
+
+                                    // Check for cURL errors
+                                    if (curl_errno($chPut)) {
+                                        echo json_encode(['code' => 500, 'message' => 'Error executing PUT request: ' . curl_error($chPut)]);
+                                    } else {
+                                        // update status dan limit transaksi provider kartu
+                                        curl_close($chPut);
+
+                                        // Decode response JSON
+                                        $putResult = json_decode($putResponse, true);
+
+                                        // Check if JSON decoding was successful
+                                        if ($putResult === null && json_last_error() !== JSON_ERROR_NONE) {
+                                            echo json_encode(['code' => 500, 'message' => 'Error decoding PUT response JSON']);
+                                        } else {
+                                        }
                                     }
                                 }
                             }
@@ -356,4 +506,3 @@ if (isset($_POST['id_pesanan'])) {
         }
     }
 }
-?>
