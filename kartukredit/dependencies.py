@@ -11,6 +11,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 import os
 import base64
+import pytz
 
 class EncryptionHelper:
     def __init__(self, key):
@@ -218,7 +219,9 @@ class DatabaseWrapper:
         print("otp {}".format(otp))
         print("encrypted_otp {}".format(encrypted_otp))
         hashed_nomer_kartu = self.hash_nomer_kartu(nomer_kartu)
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        timezone = pytz.timezone('Asia/Jakarta')
+        timestamp = datetime.now(timezone).strftime("%Y-%m-%d %H:%M:%S")
         
         attempt = 0
 
