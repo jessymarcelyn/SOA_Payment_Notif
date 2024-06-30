@@ -5,6 +5,10 @@ FROM python:3.8-slim as base
 RUN apt-get update && \
     apt-get install --yes curl netcat-openbsd libmariadb-dev
 
+# Set timezone to Asia/Jakarta
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Upgrade pip and install virtualenv
 RUN pip3 install --upgrade pip
 RUN pip3 install virtualenv
