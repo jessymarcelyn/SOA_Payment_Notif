@@ -323,6 +323,8 @@ class DatabaseWrapper:
         cursor.close()
         return True
 
+    def __del__(self):
+       self.connection.close()
 class Database(DependencyProvider):
 
     connection_pool = None

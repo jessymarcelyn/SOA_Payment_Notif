@@ -183,7 +183,8 @@ class DatabaseWrapper:
         return None # Return only timestamp
 
     
-    
+    def __del__(self):
+       self.connection.close()
     
 class Database(DependencyProvider):
     def __init__(self):

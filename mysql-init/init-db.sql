@@ -251,7 +251,7 @@ CREATE TABLE `transaksi_kartu` (
   `status` varchar(10) NOT NULL,
   `otp` varchar(255) DEFAULT NULL,
   `otp_timestamp` datetime DEFAULT NULL,
-  `attempt` int(11) DEFAULT NULL
+  `attempt` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
