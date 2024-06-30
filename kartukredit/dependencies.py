@@ -219,11 +219,13 @@ class DatabaseWrapper:
         print("encrypted_otp {}".format(encrypted_otp))
         hashed_nomer_kartu = self.hash_nomer_kartu(nomer_kartu)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        attempt = 0
 
-        sql = ("INSERT INTO transaksi_kartu (nomer_kartu, nominal, status, otp, timestamp, otp_timestamp) "
-            "VALUES (%s, %s, %s, %s, %s, %s)")
+        sql = ("INSERT INTO transaksi_kartu (nomer_kartu, nominal, status, otp, timestamp, otp_timestamp, attempt) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s)")
 
-        val = (hashed_nomer_kartu, nominal, status, encrypted_otp, timestamp, timestamp)
+        val = (hashed_nomer_kartu, nominal, status, encrypted_otp, timestamp, timestamp, attempt)
         try:
             cursor.execute(sql, val)
             self.connection.commit()
