@@ -84,7 +84,9 @@ class DatabaseWrapper:
         print("masuk")
         cursor = self.connection.cursor(dictionary=True)
         status = "initial"
-        timestamp = datetime.now()
+        timezone = pytz.timezone('Asia/Jakarta')
+        timestamp = datetime.now(timezone).strftime("%Y-%m-%d %H:%M:%S")
+        
         sql = ("INSERT INTO trans_pembayaran (id_pesanan, id_pesanan2, total_transaksi, status, timestamp ) "
                "VALUES (%s, %s, %s, %s, %s)")
 
